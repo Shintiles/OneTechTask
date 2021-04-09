@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3/org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Candidate</title>
+</head>
+<body>
+    <div th:switch="${candidates}">
+        <h2 th:case="null">No candidates found</h2>
+        <div th:case="*">
+            <h2>Candidates</h2>
+            <br/>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Phone number</th>
+                        <th>CV</th>
+                        <th>Stack tech</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="candidate : ${candidates}">
+                        <td th:text="${candidate.id}"></td>
+                        <td th:text="${candidate.firstName}"></td>
+                        <td th:text="${candidate.lastName}"></td>
+                        <td th:text="${candidate.phoneNumber}"></td>
+                        <td>
+                            <a th:href="@{download-cv/{id}(id=${candidate.id})}">Скачать</a>
+                        </td>
+                        <td>
+                           <p th:each="techStack : ${candidate.techStackSet}">
+                                <span th:text="${techStack.name}"></span>
+                            </p>
+                        </td>
+                        <td>
+                           <span th:text="${candidate.address.country}"></span>,
+                            <span th:text="${candidate.address.city}"></span>
+                        </td>
+                        <td><a th:href="@{candidate-update/{id}(id=${candidate.id})}">Edit</a></td>
+                        <td><a th:href="@{candidate-delete/{id}(id=${candidate.id})}">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a href="/candidate-create">Create candidate</a></p>
+    </div>
+</body>
+</html>

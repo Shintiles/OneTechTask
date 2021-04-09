@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3/org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Candidate</title>
+</head>
+<body>
+<form action="#" th:action="@{/candidate-update}" th:object="${candidate}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID" />
+    <br/>
+    <label for="firstName">First name</label>
+    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name" />
+    <br/>
+    <label for="lastName">Last name</label>
+    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name" />
+    <br/>
+    <label for="phoneNumber">Phone Number</label>
+    <input type="text" th:field="*{phoneNumber}" id="phoneNumber" placeholder="phone number" />
+    <br/>
+    <label for="city">City</label>
+    <input type="text" th:field="*{address.city}" id="city" placeholder="City" />
+    <br/>
+    <label for="country">Country</label>
+    <input type="text" th:field="*{address.country}" id="country" placeholder="Country" />
+    <br/>
+    <label for="cv">CV</label>
+    <input type="file" th:field="*{cv}" id="cv" placeholder="cv">
+    <br/>
+    <label for="stack">Stack:</label>
+    <p th:each="techStack : ${candidate.techStackSet}" >
+        <input type="checkbox" id="stack" th:checked="${techStack.name}" /><span th:text="${techStack.name}"></span>
+    </p>
+    </p>
+    <br/>
+    <br/>
+    <input type="submit" value="Update candidate" />
+</form>
+</body>
+</html>
